@@ -1,4 +1,4 @@
-import logo from "../../renderer/assets/logo.png";
+import logo from "../../renderer/assets/logo.svg";
 import {
   ChevronRightIcon,
   Cog6ToothIcon,
@@ -22,10 +22,6 @@ const Sidebar = () => {
       label: "Settings",
       icon: Cog6ToothIcon,
       children: [
-        {
-          href: "/settings/general",
-          label: "General",
-        },
         {
           href: "/settings/security",
           label: "Security",

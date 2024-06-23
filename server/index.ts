@@ -2,11 +2,9 @@ import express from "express";
 import compression from "compression";
 import { renderPage } from "vike/server";
 import { root } from "./root.js";
-import apiRouter from "./api/router.js";
 import cookieParser from "cookie-parser";
 import { JSW_KEY, NODE_ENV, PORT } from "./config.js";
 import jwt, { JwtPayload } from "jsonwebtoken";
-import redis from "./redis/config.js";
 
 const app = express();
 app.disable("x-powered-by");
@@ -33,7 +31,6 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cookieParser());
 
-app.use("/api", apiRouter);
 app.use((req: any, _res, next) => {
   const { access_token } = req.cookies;
 
@@ -80,10 +77,4 @@ app.get("*", async (req: any, res, next) => {
 
 app.listen(PORT, () => {
   console.log(`Server running at http://localhost:${PORT}`);
-});
-
-process.on("SIGINT", async () => {
-  await redis.quit();
-  console.log("Desconectado de Redis al cerrar la aplicación.");
-  process.exit();
 });
